@@ -17,7 +17,11 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import java.util.List;
+import android.util.Log;
+import com.platygames.mydatasheet.entities.*;
 
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -32,9 +36,38 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    private List<Sheet> Sheets = new ArrayList<Sheet>();
+    private List<Module> Modules = new ArrayList<Module>();
+    private List<Item> Items = new ArrayList<Item>();
+
+    public List<Sheet> getSheets() {
+        return Sheets;
+    }
+
+    public void setSheets(List<Sheet> sheets) {
+        Sheets = sheets;
+    }
+
+    public List<Module> getModules() {
+        return Modules;
+    }
+
+    public void setModules(List<Module> modules) {
+        Modules = modules;
+    }
+
+    public List<Item> getItems() {
+        return Items;
+    }
+
+    public void setItems(List<Item> items) {
+        Items = items;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        Init();
+                super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -45,6 +78,8 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
     }
 
     @Override
@@ -56,10 +91,19 @@ public class MainActivity extends ActionBarActivity
                 .commit();
     }
 
+    public void Init(){
+        //Initialize Forced Data
+
+        Sheet sheet = new Sheet("1","Ficha 1","Ficha de prueba");
+        Sheets.add(sheet);
+        Module module = new Module("1","1","Atributos","Atributos del personaje");
+        Sheets.get(0).addSheet_modules(module);
+
+    }
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = Sheets.get(0).getSheet_name();
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
@@ -69,6 +113,8 @@ public class MainActivity extends ActionBarActivity
                 break;
         }
     }
+
+
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
