@@ -98,20 +98,21 @@ public class MainActivity extends ActionBarActivity
         Sheets.add(sheet);
         Module module = new Module("1","1","Atributos","Atributos del personaje");
         Sheets.get(0).addSheet_modules(module);
+        //
+        sheet = new Sheet("2","Ficha 2","Ficha de prueba 2");
+        Sheets.add(sheet);
+        module = new Module("1","2","Atributos","Atributos del personaje 2");
+        Sheets.get(1).addSheet_modules(module);
+        //
+        sheet = new Sheet("1","Ficha 3","Ficha de prueba 3");
+        Sheets.add(sheet);
+        module = new Module("1","3","Atributos","Atributos del personaje 3");
+        Sheets.get(2).addSheet_modules(module);
+        //
 
     }
     public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = Sheets.get(0).getSheet_name();
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
-        }
+          mTitle = Sheets.get(number-1).getSheet_name();
     }
 
 
@@ -192,4 +193,6 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+
 }
+
