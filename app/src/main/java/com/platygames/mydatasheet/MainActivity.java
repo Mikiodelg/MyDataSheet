@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.List;
 import android.util.Log;
+import android.content.Intent;
 import com.platygames.mydatasheet.entities.*;
 
 import java.util.ArrayList;
@@ -147,6 +148,8 @@ public class MainActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent (this, MySheets.class);
+            startActivity(intent);
             return true;
         }
 
@@ -192,7 +195,4 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
-
 }
-
