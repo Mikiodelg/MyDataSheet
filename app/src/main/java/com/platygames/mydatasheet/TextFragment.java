@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 public class TextFragment extends Fragment {
     TextView text,vers;
+
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.text_fragment_2, container, false);

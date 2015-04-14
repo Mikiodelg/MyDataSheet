@@ -36,6 +36,7 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private Integer mInt;
 
     private List<Sheet> Sheets = new ArrayList<Sheet>();
     private List<Module> Modules = new ArrayList<Module>();
@@ -65,6 +66,7 @@ public class MainActivity extends ActionBarActivity
         Items = items;
     }
 
+    public Integer getMInt(){return mInt;}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Init();
@@ -113,10 +115,9 @@ public class MainActivity extends ActionBarActivity
 
     }
     public void onSectionAttached(int number) {
-          mTitle = Sheets.get(number-1).getSheet_name();
+        mInt = number-1;
+        mTitle = Sheets.get(number-1).getSheet_name();
     }
-
-
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
