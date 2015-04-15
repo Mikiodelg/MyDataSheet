@@ -14,6 +14,7 @@ public class TextFragment extends Fragment {
         View view = inflater.inflate(R.layout.text_fragment_2, container, false);
         text= (TextView) view.findViewById(R.id.AndroidOs);
         vers= (TextView)view.findViewById(R.id.Version);
+        change("Inicial","VER: Inicial");
         return view;
     }
     public void change(String txt, String txt1){

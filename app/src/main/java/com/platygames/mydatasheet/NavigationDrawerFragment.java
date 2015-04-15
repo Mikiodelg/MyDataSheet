@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -199,7 +200,11 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
+        TextFragment txt = (TextFragment)getActivity().getFragmentManager().findFragmentById(R.id.fragment2);
+        txt.change("Nombre: "+activity.getSheets().get(position).getSheet_name(),"Version : "+activity.getSheets().get(position).getSheet_desc());
+        Toast.makeText(getActivity(), "Clicked Position: "+position, Toast.LENGTH_SHORT).show();
+
+         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
         }
@@ -259,6 +264,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         if (item.getItemId() == R.id.action_example) {
             Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+
             return true;
         }
 
