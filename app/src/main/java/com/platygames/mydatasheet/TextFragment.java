@@ -12,8 +12,8 @@ public class TextFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.text_fragment_2, container, false);
-        text= (TextView) view.findViewById(R.id.AndroidOs);
-        vers= (TextView)view.findViewById(R.id.Version);
+        text= (TextView) view.findViewById(R.id.Sheet);
+        vers= (TextView)view.findViewById(R.id.Sheet_Desc);
         change("Inicial","VER: Inicial");
         return view;
     }
