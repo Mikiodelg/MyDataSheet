@@ -16,10 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
+
+import java.util.HashMap;
 import java.util.List;
 import android.util.Log;
 import android.content.Intent;
+import android.widget.Toast;
+
 import com.platygames.mydatasheet.entities.*;
 
 import java.util.ArrayList;
@@ -37,10 +42,17 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
     private Integer mInt;
-
+    private int actual_sheet;
     private List<Sheet> Sheets = new ArrayList<Sheet>();
     private List<Module> Modules = new ArrayList<Module>();
     private List<Item> Items = new ArrayList<Item>();
+
+    //Lists
+
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
 
     public List<Sheet> getSheets() {
         return Sheets;
@@ -66,25 +78,68 @@ public class MainActivity extends ActionBarActivity
         Items = items;
     }
 
+    public void setActual_sheet(int actual){
+        actual_sheet=actual;
+    }
     public Integer getMInt(){return mInt;}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Init();
+
+
                 super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
-
+        actual_sheet=0;
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        // Expandable List
 
+        // get the listview
+
+
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+
+        // preparing list data
+        prepareListData();
+
+        // setting list data
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+
+
+        // Expandable List
     }
 
+
+    public void prepareListData() {
+        Log.d("prepareList","prepareList: estoy cogiendo el sheet: "+actual_sheet);
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+        List<String> data = new ArrayList<String>();
+
+            for (int i = 0; i<Sheets.get(actual_sheet).getSheet_modules().size();i++){
+                listDataHeader.add(Sheets.get(actual_sheet).getSheet_modules().get(i).getModule_name());
+                for (int j = 0; j<Sheets.get(actual_sheet).getSheet_modules().get(i).getModule_items().size();j++){
+                    data.add(Sheets.get(actual_sheet).getSheet_modules().get(i).getModule_items().get(j).getItem_label());
+                    Log.d("prepareList","item: estoy cogiendo el item: "+data.get(j));
+                }
+                listDataChild.put(listDataHeader.get(0), data);
+            }
+        }
+    public void notifyDataSetChanged() {
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+        listAdapter.notifyDataSetChanged();
+    }
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
@@ -101,6 +156,12 @@ public class MainActivity extends ActionBarActivity
         Sheets.add(sheet);
         Module module = new Module("1","1","Atributos","Atributos del personaje");
         Sheets.get(0).addSheet_modules(module);
+        Item item = new Item("0", "0", "Nominal", "FUE", "8");
+        Sheets.get(0).getSheet_modules().get(0).addModule_items(item);
+        item = new Item("1", "0", "Nominal", "AGI", "8");
+        Sheets.get(0).getSheet_modules().get(0).addModule_items(item);
+        item = new Item("2", "0", "Nominal", "INT", "8");
+        Sheets.get(0).getSheet_modules().get(0).addModule_items(item);
         //
         sheet = new Sheet("2","Ficha 2","Ficha de prueba 2");
         Sheets.add(sheet);
