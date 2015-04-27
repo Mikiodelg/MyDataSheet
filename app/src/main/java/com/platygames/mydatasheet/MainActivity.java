@@ -47,13 +47,6 @@ public class MainActivity extends ActionBarActivity
     private List<Module> Modules = new ArrayList<Module>();
     private List<Item> Items = new ArrayList<Item>();
 
-    //Lists
-
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
-
     public List<Sheet> getSheets() {
         return Sheets;
     }
@@ -98,48 +91,10 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-        // Expandable List
-
-        // get the listview
-
-
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
-
-        // preparing list data
-        prepareListData();
-
-        // setting list data
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
-
-
-        // Expandable List
     }
 
 
-    public void prepareListData() {
-        Log.d("prepareList","prepareList: estoy cogiendo el sheet: "+actual_sheet);
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-        List<String> data = new ArrayList<String>();
 
-            for (int i = 0; i<Sheets.get(actual_sheet).getSheet_modules().size();i++){
-                listDataHeader.add(Sheets.get(actual_sheet).getSheet_modules().get(i).getModule_name());
-                for (int j = 0; j<Sheets.get(actual_sheet).getSheet_modules().get(i).getModule_items().size();j++){
-                    data.add(Sheets.get(actual_sheet).getSheet_modules().get(i).getModule_items().get(j).getItem_label());
-                    Log.d("prepareList","item: estoy cogiendo el item: "+data.get(j));
-                }
-                listDataChild.put(listDataHeader.get(0), data);
-            }
-        }
-    public void notifyDataSetChanged() {
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-
-        listAdapter.notifyDataSetChanged();
-    }
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments

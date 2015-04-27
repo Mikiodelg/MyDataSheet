@@ -201,8 +201,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void selectItem(int position) {
         activity.setActual_sheet(position);
-        activity.prepareListData();
-        activity.notifyDataSetChanged();
         TextFragment txt = (TextFragment)getActivity().getFragmentManager().findFragmentById(R.id.fragment2);
         txt.change("Nombre: "+activity.getSheets().get(position).getSheet_name(),"Version : "+activity.getSheets().get(position).getSheet_desc());
         Toast.makeText(getActivity(), "Clicked Position: "+position, Toast.LENGTH_SHORT).show();
@@ -265,7 +263,7 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
+        if (item.getItemId() == R.id.action_save) {
             Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
 
             return true;

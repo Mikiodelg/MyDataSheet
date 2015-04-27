@@ -6,6 +6,8 @@
     android:layout_height="match_parent">
 
 
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -36,11 +38,8 @@
                 android:id="@+id/Sheet_Desc"
                 />
             </LinearLayout>
-
-        <ExpandableListView
-            android:id="@+id/lvExp"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"/>
     </LinearLayout>
+
+
 
 </LinearLayout>

@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 public class TextFragment extends Fragment {
     TextView text,vers;
+    private MainActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
+        activity = (MainActivity)getActivity();
         View view = inflater.inflate(R.layout.text_fragment_2, container, false);
         text= (TextView) view.findViewById(R.id.Sheet);
         vers= (TextView)view.findViewById(R.id.Sheet_Desc);
